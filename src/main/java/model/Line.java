@@ -12,7 +12,6 @@ public class Line {
     private final List<Direction> points;
 
     public Line(int personCount) {
-
         points = new ArrayList<>();
         createLine(personCount,points);
     }
