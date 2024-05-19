@@ -17,7 +17,7 @@ public class UserTest {
                 .hasMessage("유저 이름은 빈칸이 들어갈 수 없습니다.");
     }
 
-    @DisplayName("유저 이름 생성 시 글자 수 확인")
+    @DisplayName("유저 이름 생성 시 글자 수가 1~5자리여야 한다")
     @Test
     void ValidateLengthInUserNameTest() {
         assertThatThrownBy(() -> new User("여섯글자이름"))
@@ -25,7 +25,7 @@ public class UserTest {
                 .hasMessage("유저 이름은 1~5자리 글자여야 합니다.");
     }
 
-    @DisplayName("유저 리스트 크기 확인")
+    @DisplayName("유저 리스트 크기는 2이상이여야 한다")
     @Test
     void ValidateUserListSizeTest() {
         List<User> users = List.of(new User("포비"));

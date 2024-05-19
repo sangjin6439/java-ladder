@@ -12,38 +12,47 @@ public class Line {
     private final List<Direction> points;
 
     public Line(int personCount) {
+
         points = new ArrayList<>();
         createLine(personCount,points);
+
+        points = createLine(personCount);
+
     }
 
-    private void createLine(int personCount, List<Direction> points){
-        Direction previousDirection = Direction.NEUTRAL;
 
-        for (int i = 0; i < personCount - 1; i++) {
-            Direction newDirection = createDirection(previousDirection);
+    private List<Direction> createLine(int personCount) {
+        List<Direction> points = new ArrayList<>();
+        Direction previusDirection = getpreviusDirection();
+        points.add(previusDirection);
+
+        for (int i = 1; i < personCount - 1; i++) {
+            Direction previousDirection = points.get(i - 1);
+            Direction newDirection = getNextDirection(previousDirection);
             points.add(newDirection);
-            previousDirection = updatePreviousDirection(previousDirection, newDirection);
         }
-        // 마지막 포인트는 항상 NEUTRAL
-        points.add(Direction.NEUTRAL);
+
+        points.add(Direction.NEUTRAL);  // 마지막 방향은 항상 중립으로 설정
+        return points;
     }
 
-    private Direction createDirection(Direction previousDirection) {
-        if (previousDirection == Direction.LEFT) {
-            return Direction.NEUTRAL;
-        }
+    // 초기 방향을 결정하는 메서드
+    private Direction getpreviusDirection() {
         if (random.nextBoolean()) {
             return Direction.RIGHT;
         }
         return Direction.NEUTRAL;
     }
 
-    private Direction updatePreviousDirection(Direction previousDirection, Direction newDirection) {
-        // 오른쪽으로 가는 경우 다음 포인트는 왼쪽으로 갈 수 없습니다.
-        if (newDirection == Direction.RIGHT) {
-            return previousDirection = Direction.LEFT;
+    // 다음 방향을 결정하는 메서드
+    private Direction getNextDirection(Direction previousDirection) {
+        if (previousDirection == Direction.RIGHT) {
+            return Direction.NEUTRAL;
         }
-        return previousDirection = Direction.NEUTRAL;
+        if (random.nextBoolean()) {
+            return Direction.RIGHT;
+        }
+        return Direction.NEUTRAL;
     }
 
     public List<Direction> getPoints() {
