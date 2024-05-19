@@ -31,7 +31,7 @@ public class GameController {
         List<String> userNames = inputView.createUser();
 
         return userNames.stream()
-                .map(i -> new User(i))
-                .collect(collectingAndThen(toList(), i -> new Users(i)));
+                .map(User::new)
+                .collect(collectingAndThen(toList(), Users::new));
     }
 }
